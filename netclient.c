@@ -105,7 +105,7 @@ ssize_t netread(int fildes, void *buf, size_t nbyte){
     
     addr.sin_port = htons(PORT);
     addr.sin_addr.s_addr = 0;
-    addr.sin_addr.s_addr = IPADDRESS;
+    addr.sin_addr.s_addr = inet_addr(IPADDRESS);
     addr.sin_family = AF_INET;
     
     
@@ -209,9 +209,8 @@ int netserverinit(char * hostname, int connectionMode){
         return -1;
     }
     
-    int netsockfd;
     struct addrinfo addressinformation;
-    struct addrinfo *result, *rp;
+    struct addrinfo *result;
     int addrinfovalue;
     
     bzero(&addressinformation, sizeof(addressinformation));
@@ -239,8 +238,8 @@ int netserverinit(char * hostname, int connectionMode){
 
 int main(void)
 {
-    int i = 0;
-    int err;
+    //int i = 0;
+    //int err;
     //netopen("DOCUMENTS", O_RDWR);
     //netopen("WHOA", 5);
     netserverinit("127.0.0.1", 2);

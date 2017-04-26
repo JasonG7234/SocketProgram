@@ -18,6 +18,14 @@ int hostfound = 0;
 
 
 int netopen(const char *pathname, int flags){
+    
+    //SERVER ERRORS:
+        //HAVING ACCESS TO FILE
+        //FILE IS A FOLDER AND NOT A FILE
+    
+    
+    
+    
     /*checks to see if they are valid flags*/
     if(flags != O_RDWR && flags != O_RDONLY && flags != O_WRONLY){
         printf("ERROR : INVALID FLAG for File : %s\n", pathname);
@@ -197,7 +205,10 @@ ssize_t netwrite(int fildes, void *buf, size_t nbyte){
 }
 
 int netclose(int fd){
-    return 0;
+    if (close(fd) == -1) {
+        h_errno = 9;
+        return -1;
+    }
 }
 
 int netserverinit(char * hostname, int connectionMode){
